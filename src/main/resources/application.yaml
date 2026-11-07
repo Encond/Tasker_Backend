@@ -45,4 +45,4 @@ app:
   password-reset:
     expiration: 1h
   email:
-    base-url: http://localhost:8080
+    password-reset-url: http://localhost:8080
