@@ -40,3 +40,7 @@ spring:
               - openid
               - email
               - profile
+
+app:
+  password-reset:
+    expiration: 1h
