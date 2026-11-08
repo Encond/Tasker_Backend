@@ -43,8 +43,8 @@ public class PasswordManagementService {
 	}
 
 	@Transactional
-	public void resetPassword(final String token, final PasswordResetRequest request) {
-		this.passwordResetTokenService.get(this.hashToken(token)).ifPresent((passwordResetToken) -> {
+	public void resetPassword(final PasswordResetRequest request) {
+		this.passwordResetTokenService.get(this.hashToken(request.token())).ifPresent((passwordResetToken) -> {
 			if (passwordResetToken.isExpired() || passwordResetToken.isUsed()) {
 				// TODO: Exception
 			}
