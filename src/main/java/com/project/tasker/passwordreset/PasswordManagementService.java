@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.tasker.account.AccountService;
 import com.project.tasker.email.EmailService;
-import com.project.tasker.passwordreset.request.ChangePasswordRequest;
+import com.project.tasker.passwordreset.request.PasswordChangeRequest;
 import com.project.tasker.passwordreset.request.PasswordResetRequest;
 
 import lombok.AllArgsConstructor;
@@ -55,7 +55,7 @@ public class PasswordManagementService {
 	}
 
 	@Transactional
-	public void changePassword(final UUID accountId, final ChangePasswordRequest request) {
+	public void changePassword(final UUID accountId, final PasswordChangeRequest request) {
 		this.accountService.get(accountId).ifPresent((account) -> {
 			if (!account.hasPassword() || this.passwordEncoder.matches(request.currentPassword(), account.getPasswordHash())) {
 				// TODO: Exception
