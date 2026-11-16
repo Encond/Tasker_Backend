@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.project.tasker.account.Account;
+import com.project.tasker.task.TaskService;
 
 import lombok.AllArgsConstructor;
 
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 public class GoalService {
 
 	private final GoalRepository goalRepository;
+
+	private final TaskService taskService;
 
 	public Goal create(final String title, final String description, final Instant dueDate, final Account account) {
 		return this.goalRepository.save(Goal.of(title, description, dueDate, account));
@@ -25,7 +28,7 @@ public class GoalService {
 	}
 
 	public void delete(final UUID id, final UUID accountId) {
-		// TODO: Remove tasks first
+		this.taskService.deleteAll(id, accountId);
 		this.goalRepository.deleteByIdAndAccountId(id, accountId);
 	}
 
