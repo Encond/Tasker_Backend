@@ -69,4 +69,20 @@ public interface GoalRepository extends JpaRepository<Goal, UUID> {
 
 	void deleteByIdAndAccountId(UUID id, UUID accountId);
 
+	@Query("""
+			SELECT COUNT(g)
+			FROM Goal g
+			WHERE g.account.id = :accountId AND EXISTS(SELECT t.id FROM Task t WHERE t.goal = g AND t.completed = false)
+			""")
+	long countActiveGoals(UUID accountId);
+
+	@Query("""
+			SELECT COUNT(g)
+			FROM Goal g
+			WHERE g.account.id = :accountId
+			AND EXISTS(SELECT t.id FROM Task t WHERE t.goal = g)
+			AND NOT EXISTS(SELECT t.id FROM Task t WHERE t.goal = g AND t.completed = false)
+			""")
+	long countCompletedGoals(UUID accountId);
+
 }
