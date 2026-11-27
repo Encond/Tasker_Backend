@@ -46,3 +46,8 @@ app:
     expiration: 1h
   email:
     password-reset-url: http://localhost:8080
+  auth:
+    token:
+      access:
+        secret: ${ACCESS_TOKEN_SECRET}
+        expiration: ${ACCESS_TOKEN_EXPIRATION}
